@@ -8,7 +8,9 @@ public class Main {
     public static void main(String[] args) {
         gameSystem M = new gameSystem();
         SpelerVragenLijst SP = new SpelerVragenLijst();
-        long Eindtotaal;
+        int secondenInMinuut = 60;
+        int millisecondenInSeconden = 100;
+        long quizTijdBegin = System.currentTimeMillis();
         ArrayList<Vraag> vragenLijst = SP.setVragenLijst();
         for(int vraagNummer = 1; vraagNummer < 10; vraagNummer++) {
                 M.showVraag(vragenLijst);
@@ -17,8 +19,14 @@ public class Main {
                 System.out.println(inputAntwoord);
                 M.inputCheck(inputAntwoord);
         }
-       Eindtotaal = M.getPuntenAantal();
-        System.out.println("u heeft " + Eindtotaal + " behaald");
+        long quizTijdEind = System.currentTimeMillis();
+        long besteeddeTijd = ((quizTijdEind - quizTijdBegin)/millisecondenInSeconden)/secondenInMinuut;
+        System.out.println(besteeddeTijd);
+        long bonusTotaal = M.berekenBonusPunten(besteeddeTijd);
+        long behaaldTotaal = M.getPuntenAantal();
+       Eindtotaal = bonusTotaal + behaaldTotaal;
+
+        System.out.println("u heeft " + Eindtotaal + " behaald waarvan " + bonusTotaal +" bonuspunten");
     }
 }
 
